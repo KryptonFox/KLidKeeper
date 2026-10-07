@@ -6,10 +6,10 @@
       .ColorScheme-Highlight { color: #3daee9; }
     </style>
   </defs>
-  <!-- Cup body outline (Empty cup) -->
-  <path class="ColorScheme-Text" style="fill:currentColor;stroke:none" d="M 4 6 C 3.45 6 3 6.45 3 7 L 3 12.5 C 3 14.98 5.02 17 7.5 17 L 11.5 17 C 13.98 17 16 14.98 16 12.5 L 16 7 C 16 6.45 15.55 6 15 6 L 4 6 z M 4.5 7.5 L 14.5 7.5 L 14.5 12.5 C 14.5 14.16 13.16 15.5 11.5 15.5 L 7.5 15.5 C 5.84 15.5 4.5 14.16 4.5 12.5 L 4.5 7.5 z"/>
+  <!-- Cup body outline (Empty cup, Breeze 22x22 proportions) -->
+  <path class="ColorScheme-Text" style="fill:currentColor;stroke:none" d="M 3.5 4.5 C 2.7 4.5 2 5.2 2 6 L 2 13 C 2 15.8 4.2 18 7 18 L 11 18 C 13.8 18 16 15.8 16 13 L 16 6 C 16 5.2 15.3 4.5 14.5 4.5 L 3.5 4.5 z M 3.6 6 L 14.4 6 L 14.4 13 C 14.4 14.9 12.9 16.4 11 16.4 L 7 16.4 C 5.1 16.4 3.6 14.9 3.6 13 L 3.6 6 z"/>
   <!-- Handle -->
-  <path class="ColorScheme-Text" style="fill:currentColor;stroke:none" d="M 15 8 C 15 8 18 8 18 10.5 C 18 13 15 13 15 13 L 15 11.6 C 16.5 11.6 16.6 11 16.6 10.5 C 16.6 10 16.5 9.4 15 9.4 L 15 8 z"/>
+  <path class="ColorScheme-Text" style="fill:currentColor;stroke:none" d="M 15 7 C 15 7 19.5 7 19.5 10.5 C 19.5 14 15 14 15 14 L 15 12.4 C 17.8 12.4 17.9 11.5 17.9 10.5 C 17.9 9.5 17.8 8.6 15 8.6 L 15 7 z"/>
   <!-- Saucer plate -->
-  <path class="ColorScheme-Text" style="fill:currentColor;stroke:none" d="M 2 18.25 C 2 17.84 2.34 17.5 2.75 17.5 L 16.25 17.5 C 16.66 17.5 17 17.84 17 18.25 C 17 18.66 16.66 19 16.25 19 L 2.75 19 C 2.34 19 2 18.66 2 18.25 z"/>
+  <path class="ColorScheme-Text" style="fill:currentColor;stroke:none" d="M 1.5 19.2 C 1.5 18.7 1.9 18.3 2.5 18.3 L 17.5 18.3 C 18.1 18.3 18.5 18.7 18.5 19.2 C 18.5 19.7 18.1 20.1 17.5 20.1 L 2.5 20.1 C 1.9 20.1 1.5 19.7 1.5 19.2 z"/>
 </svg>

@@ -13,7 +13,7 @@ PlasmoidItem {
 
     // Sizing for desktop / plasmoidviewer
     implicitWidth: Kirigami.Units.gridUnit * 22
-    implicitHeight: Kirigami.Units.gridUnit * 17
+    implicitHeight: contentLayout ? contentLayout.implicitHeight + (Kirigami.Units.largeSpacing * 2) : Kirigami.Units.gridUnit * 15
     width: implicitWidth
     height: implicitHeight
 
@@ -66,7 +66,6 @@ PlasmoidItem {
 
         Kirigami.Icon {
             anchors.fill: parent
-            anchors.margins: Kirigami.Units.smallSpacing
             source: controller.isInhibited ? "caffeine-cup-full" : "caffeine-cup-empty"
             fallback: controller.isInhibited ? "system-suspend-inhibited" : "system-suspend-uninhibited"
             isMask: true
@@ -82,27 +81,28 @@ PlasmoidItem {
 
         Layout.minimumWidth: Kirigami.Units.gridUnit * 21
         Layout.preferredWidth: Kirigami.Units.gridUnit * 23
-        Layout.maximumWidth: Kirigami.Units.gridUnit * 26
+        Layout.maximumWidth: Kirigami.Units.gridUnit * 25
+        Layout.preferredHeight: contentLayout.implicitHeight
 
         contentItem: ColumnLayout {
             id: contentLayout
-            spacing: Kirigami.Units.largeSpacing
+            spacing: Kirigami.Units.mediumSpacing
 
             // -----------------------------------------------------------------
-            // 1. Hero Toggle: Prevent sleep on lid close
+            // 1. Hero Toggle Card: Prevent sleep on lid close
             // -----------------------------------------------------------------
             Rectangle {
                 Layout.fillWidth: true
                 radius: Kirigami.Units.smallSpacing * 1.5
                 color: controller.isInhibited
-                    ? Qt.alpha(Kirigami.Theme.highlightColor, 0.15)
+                    ? Qt.alpha(Kirigami.Theme.highlightColor, 0.16)
                     : (heroHover.containsMouse ? Qt.alpha(Kirigami.Theme.textColor, 0.06) : Qt.alpha(Kirigami.Theme.textColor, 0.03))
                 border.color: controller.isInhibited
-                    ? Qt.alpha(Kirigami.Theme.highlightColor, 0.45)
+                    ? Qt.alpha(Kirigami.Theme.highlightColor, 0.5)
                     : Qt.alpha(Kirigami.Theme.textColor, 0.12)
                 border.width: 1
 
-                implicitHeight: heroLayout.implicitHeight + (Kirigami.Units.largeSpacing * 2)
+                implicitHeight: heroLayout.implicitHeight + (Kirigami.Units.mediumSpacing * 2)
 
                 MouseArea {
                     id: heroHover
@@ -168,110 +168,109 @@ PlasmoidItem {
                 }
             }
 
-            Kirigami.Separator {
-                Layout.fillWidth: true
-            }
-
             // -----------------------------------------------------------------
-            // 2. Display behavior when lid is closed (Clean ComboBox row)
-            // -----------------------------------------------------------------
-            RowLayout {
-                Layout.fillWidth: true
-                spacing: Kirigami.Units.largeSpacing
-
-                ColumnLayout {
-                    Layout.fillWidth: true
-                    spacing: 2
-
-                    PlasmaComponents3.Label {
-                        text: i18n("When laptop lid is closed:")
-                        font.bold: true
-                        Layout.fillWidth: true
-                    }
-
-                    PlasmaComponents3.Label {
-                        text: controller.screenAction === LidController.TurnOffScreen
-                            ? i18n("Turns off display backlight while the lid is closed. Wakes up immediately upon opening.")
-                            : (controller.screenAction === LidController.DimBrightness
-                                ? i18n("Dims display brightness to 0% when closed and restores previous brightness upon opening.")
-                                : i18n("Display remains powered on in its current state."))
-                        opacity: 0.7
-                        font.pointSize: Kirigami.Theme.smallFont.pointSize
-                        wrapMode: Text.WordWrap
-                        Layout.fillWidth: true
-                    }
-                }
-
-                PlasmaComponents3.ComboBox {
-                    id: screenCombo
-                    Layout.alignment: Qt.AlignVCenter
-                    Layout.preferredWidth: Kirigami.Units.gridUnit * 12
-                    model: [
-                        i18n("Turn off screen (DPMS Off)"),
-                        i18n("Dim display brightness to minimum"),
-                        i18n("Do nothing (keep screen on)")
-                    ]
-                    currentIndex: controller.screenAction
-                    onActivated: index => {
-                        controller.screenAction = index;
-                    }
-                }
-            }
-
-            Kirigami.Separator {
-                Layout.fillWidth: true
-            }
-
-            // -----------------------------------------------------------------
-            // 3. Prevent screen lock setting
-            // -----------------------------------------------------------------
-            RowLayout {
-                Layout.fillWidth: true
-                spacing: Kirigami.Units.largeSpacing
-
-                ColumnLayout {
-                    Layout.fillWidth: true
-                    spacing: 2
-
-                    PlasmaComponents3.Label {
-                        text: i18n("Prevent screen lock")
-                        font.bold: true
-                        Layout.fillWidth: true
-                    }
-
-                    PlasmaComponents3.Label {
-                        text: i18n("Do not lock session on lid close or idle while awake")
-                        opacity: 0.7
-                        font.pointSize: Kirigami.Theme.smallFont.pointSize
-                        wrapMode: Text.WordWrap
-                        Layout.fillWidth: true
-                    }
-                }
-
-                PlasmaComponents3.Switch {
-                    checked: controller.preventLock
-                    onToggled: {
-                        controller.preventLock = checked;
-                    }
-
-                    PlasmaComponents3.ToolTip.visible: hovered
-                    PlasmaComponents3.ToolTip.text: checked
-                        ? i18n("Screen lock is prevented while awake mode is active")
-                        : i18n("Screen may be locked according to system power settings")
-                }
-            }
-
-            // -----------------------------------------------------------------
-            // 4. Informative status banner
+            // 2. Settings Group Card (Display behavior & Screen lock)
             // -----------------------------------------------------------------
             Rectangle {
                 Layout.fillWidth: true
                 radius: Kirigami.Units.smallSpacing * 1.5
-                color: Qt.alpha(controller.isInhibited ? Kirigami.Theme.highlightColor : Kirigami.Theme.textColor, 0.08)
-                border.color: Qt.alpha(controller.isInhibited ? Kirigami.Theme.highlightColor : Kirigami.Theme.textColor, 0.15)
+                color: Qt.alpha(Kirigami.Theme.textColor, 0.03)
+                border.color: Qt.alpha(Kirigami.Theme.textColor, 0.1)
                 border.width: 1
 
-                implicitHeight: bannerRow.implicitHeight + (Kirigami.Units.mediumSpacing * 2)
+                implicitHeight: settingsCol.implicitHeight + (Kirigami.Units.mediumSpacing * 2)
+
+                ColumnLayout {
+                    id: settingsCol
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.leftMargin: Kirigami.Units.largeSpacing
+                    anchors.rightMargin: Kirigami.Units.largeSpacing
+                    spacing: Kirigami.Units.mediumSpacing
+
+                    // Row A: Screen Action with ComboBox
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: Kirigami.Units.mediumSpacing
+
+                        PlasmaComponents3.Label {
+                            text: i18n("When laptop lid is closed:")
+                            font.bold: true
+                            Layout.fillWidth: true
+                        }
+
+                        PlasmaComponents3.ComboBox {
+                            id: screenCombo
+                            Layout.alignment: Qt.AlignVCenter
+                            Layout.preferredWidth: Kirigami.Units.gridUnit * 12
+                            model: [
+                                i18n("Turn off screen (DPMS Off)"),
+                                i18n("Dim display brightness to minimum"),
+                                i18n("Do nothing (keep screen on)")
+                            ]
+                            currentIndex: controller.screenAction
+                            onActivated: index => {
+                                controller.screenAction = index;
+                            }
+                        }
+                    }
+
+                    Kirigami.Separator {
+                        Layout.fillWidth: true
+                        opacity: 0.5
+                    }
+
+                    // Row B: Prevent Screen Lock with Switch
+                    RowLayout {
+                        Layout.fillWidth: true
+                        spacing: Kirigami.Units.mediumSpacing
+
+                        ColumnLayout {
+                            Layout.fillWidth: true
+                            spacing: 1
+
+                            PlasmaComponents3.Label {
+                                text: i18n("Prevent screen lock")
+                                font.bold: true
+                                Layout.fillWidth: true
+                            }
+
+                            PlasmaComponents3.Label {
+                                text: i18n("Do not lock session on lid close or idle while awake")
+                                opacity: 0.65
+                                font.pointSize: Kirigami.Theme.smallFont.pointSize * 0.95
+                                wrapMode: Text.WordWrap
+                                Layout.fillWidth: true
+                            }
+                        }
+
+                        PlasmaComponents3.Switch {
+                            checked: controller.preventLock
+                            onToggled: {
+                                controller.preventLock = checked;
+                            }
+
+                            PlasmaComponents3.ToolTip.visible: hovered
+                            PlasmaComponents3.ToolTip.text: checked
+                                ? i18n("Screen lock is prevented while awake mode is active")
+                                : i18n("Screen may be locked according to system power settings")
+                        }
+                    }
+                }
+            }
+
+            // -----------------------------------------------------------------
+            // 3. Informative Status Banner
+            // -----------------------------------------------------------------
+            Rectangle {
+                Layout.fillWidth: true
+                radius: Kirigami.Units.smallSpacing * 1.5
+                color: Qt.alpha(controller.isInhibited ? Kirigami.Theme.highlightColor : Kirigami.Theme.textColor, 0.07)
+                border.color: Qt.alpha(controller.isInhibited ? Kirigami.Theme.highlightColor : Kirigami.Theme.textColor, 0.14)
+                border.width: 1
+
+                implicitHeight: bannerRow.implicitHeight + (Kirigami.Units.smallSpacing * 2.2)
 
                 RowLayout {
                     id: bannerRow
@@ -283,7 +282,7 @@ PlasmoidItem {
                     spacing: Kirigami.Units.mediumSpacing
 
                     Kirigami.Icon {
-                        source: controller.isInhibited ? "dialog-information" : "state-offline"
+                        source: controller.isInhibited ? "dialog-information" : "preferences-desktop-power"
                         Layout.preferredWidth: Kirigami.Units.iconSizes.small
                         Layout.preferredHeight: Kirigami.Units.iconSizes.small
                         opacity: 0.8
