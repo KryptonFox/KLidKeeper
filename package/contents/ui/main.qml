@@ -11,15 +11,16 @@ import org.kde.klid 1.0
 PlasmoidItem {
     id: root
 
-    // Sizing for popup / desktop / plasmoidviewer
+    // Sizing for desktop / plasmoidviewer
     implicitWidth: Kirigami.Units.gridUnit * 22
-    implicitHeight: Kirigami.Units.gridUnit * 21
+    implicitHeight: Kirigami.Units.gridUnit * 20
     width: implicitWidth
     height: implicitHeight
 
-    // Dynamic icon for Plasma panel & system tray
+    // System tray integration
     Plasmoid.icon: controller.isInhibited ? "caffeine-cup-full" : "caffeine-cup-empty"
     Plasmoid.title: i18n("KLidKeeper")
+    Plasmoid.status: PlasmaCore.Types.ActiveStatus
 
     // Rich native tooltip
     toolTipMainText: i18n("KLidKeeper")
@@ -65,10 +66,10 @@ PlasmoidItem {
 
         Kirigami.Icon {
             anchors.fill: parent
-            source: controller.isInhibited
-                ? Qt.resolvedUrl("../icons/caffeine-cup-full.svg")
-                : Qt.resolvedUrl("../icons/caffeine-cup-empty.svg")
-            fallback: controller.isInhibited ? "caffeine-cup-full" : "caffeine-cup-empty"
+            anchors.margins: Kirigami.Units.smallSpacing
+            source: controller.isInhibited ? "caffeine-cup-full" : "caffeine-cup-empty"
+            fallback: controller.isInhibited ? "system-suspend-inhibited" : "system-suspend-uninhibited"
+            isMask: true
             active: compactArea.containsMouse || controller.isInhibited
         }
     }
@@ -79,23 +80,19 @@ PlasmoidItem {
     fullRepresentation: PlasmaExtras.Representation {
         id: fullArea
 
-        Layout.minimumWidth: Kirigami.Units.gridUnit * 21
-        Layout.preferredWidth: Kirigami.Units.gridUnit * 23
-        Layout.maximumWidth: Kirigami.Units.gridUnit * 26
-
-        Layout.minimumHeight: contentLayout.implicitHeight + (header ? header.implicitHeight : 0) + (Kirigami.Units.gridUnit * 2)
-        Layout.preferredHeight: Layout.minimumHeight
+        Layout.minimumWidth: Kirigami.Units.gridUnit * 20
+        Layout.preferredWidth: Kirigami.Units.gridUnit * 22
+        Layout.maximumWidth: Kirigami.Units.gridUnit * 25
 
         header: PlasmaExtras.PlasmoidHeading {
             RowLayout {
                 anchors.fill: parent
-                spacing: Kirigami.Units.smallSpacing
+                spacing: Kirigami.Units.mediumSpacing
 
                 Kirigami.Icon {
-                    source: controller.isInhibited
-                        ? Qt.resolvedUrl("../icons/caffeine-cup-full.svg")
-                        : Qt.resolvedUrl("../icons/caffeine-cup-empty.svg")
-                    fallback: controller.isInhibited ? "caffeine-cup-full" : "caffeine-cup-empty"
+                    source: controller.isInhibited ? "caffeine-cup-full" : "caffeine-cup-empty"
+                    fallback: controller.isInhibited ? "system-suspend-inhibited" : "system-suspend-uninhibited"
+                    isMask: true
                     Layout.preferredWidth: Kirigami.Units.iconSizes.smallMedium
                     Layout.preferredHeight: Kirigami.Units.iconSizes.smallMedium
                     active: controller.isInhibited
@@ -155,75 +152,77 @@ PlasmoidItem {
             // -----------------------------------------------------------------
             Rectangle {
                 Layout.fillWidth: true
-                implicitHeight: cardRow.implicitHeight + Kirigami.Units.largeSpacing * 2
                 radius: Kirigami.Units.smallSpacing * 1.5
                 color: controller.isInhibited
                     ? Qt.alpha(Kirigami.Theme.highlightColor, 0.12)
-                    : (hoverArea.containsMouse ? Qt.alpha(Kirigami.Theme.textColor, 0.06) : Qt.alpha(Kirigami.Theme.textColor, 0.03))
+                    : (heroHover.containsMouse ? Qt.alpha(Kirigami.Theme.textColor, 0.06) : Qt.alpha(Kirigami.Theme.textColor, 0.03))
                 border.color: controller.isInhibited
-                    ? Qt.alpha(Kirigami.Theme.highlightColor, 0.5)
-                    : Qt.alpha(Kirigami.Theme.textColor, 0.15)
+                    ? Qt.alpha(Kirigami.Theme.highlightColor, 0.45)
+                    : Qt.alpha(Kirigami.Theme.textColor, 0.12)
                 border.width: 1
 
+                implicitHeight: heroLayout.implicitHeight + (Kirigami.Units.largeSpacing * 2)
+
                 MouseArea {
-                    id: hoverArea
+                    id: heroHover
                     anchors.fill: parent
                     hoverEnabled: true
                     cursorShape: Qt.PointingHandCursor
                     onClicked: controller.toggle()
+                }
 
-                    RowLayout {
-                        id: cardRow
-                        anchors.fill: parent
-                        anchors.leftMargin: Kirigami.Units.largeSpacing
-                        anchors.rightMargin: Kirigami.Units.largeSpacing
-                        spacing: Kirigami.Units.largeSpacing
+                RowLayout {
+                    id: heroLayout
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.leftMargin: Kirigami.Units.largeSpacing
+                    anchors.rightMargin: Kirigami.Units.largeSpacing
+                    spacing: Kirigami.Units.largeSpacing
 
-                        Kirigami.Icon {
-                            source: controller.isInhibited
-                                ? Qt.resolvedUrl("../icons/caffeine-cup-full.svg")
-                                : Qt.resolvedUrl("../icons/caffeine-cup-empty.svg")
-                            fallback: controller.isInhibited ? "caffeine-cup-full" : "caffeine-cup-empty"
-                            Layout.preferredWidth: Kirigami.Units.iconSizes.medium
-                            Layout.preferredHeight: Kirigami.Units.iconSizes.medium
-                            active: controller.isInhibited
-                        }
+                    Kirigami.Icon {
+                        source: controller.isInhibited ? "caffeine-cup-full" : "caffeine-cup-empty"
+                        fallback: controller.isInhibited ? "system-suspend-inhibited" : "system-suspend-uninhibited"
+                        isMask: true
+                        Layout.preferredWidth: Kirigami.Units.iconSizes.medium
+                        Layout.preferredHeight: Kirigami.Units.iconSizes.medium
+                        active: controller.isInhibited
+                    }
 
-                        ColumnLayout {
+                    ColumnLayout {
+                        Layout.fillWidth: true
+                        spacing: 2
+
+                        PlasmaComponents3.Label {
+                            text: i18n("Prevent sleep on lid close")
+                            font.bold: true
                             Layout.fillWidth: true
-                            spacing: 2
+                        }
 
-                            PlasmaComponents3.Label {
-                                text: i18n("Prevent sleep on lid close")
-                                font.bold: true
-                                Layout.fillWidth: true
-                            }
+                        PlasmaComponents3.Label {
+                            text: controller.isInhibited
+                                ? i18n("Active: Laptop will not sleep when lid is closed")
+                                : i18n("Inactive: Standard sleep behavior on lid close")
+                            opacity: 0.7
+                            font.pointSize: Kirigami.Theme.smallFont.pointSize
+                            wrapMode: Text.WordWrap
+                            Layout.fillWidth: true
+                        }
+                    }
 
-                            PlasmaComponents3.Label {
-                                text: controller.isInhibited
-                                    ? i18n("Active: Laptop will not sleep when lid is closed")
-                                    : i18n("Inactive: Standard sleep behavior on lid close")
-                                opacity: 0.75
-                                font.pointSize: Kirigami.Theme.smallFont.pointSize
-                                wrapMode: Text.WordWrap
-                                Layout.fillWidth: true
+                    PlasmaComponents3.Switch {
+                        id: inhibitSwitch
+                        checked: controller.isInhibited
+                        onToggled: {
+                            if (checked !== controller.isInhibited) {
+                                controller.toggle();
                             }
                         }
 
-                        PlasmaComponents3.Switch {
-                            id: inhibitSwitch
-                            checked: controller.isInhibited
-                            onToggled: {
-                                if (checked !== controller.isInhibited) {
-                                    controller.toggle();
-                                }
-                            }
-
-                            PlasmaComponents3.ToolTip.visible: hovered
-                            PlasmaComponents3.ToolTip.text: checked
-                                ? i18n("Click to allow sleep on lid close")
-                                : i18n("Click to prevent sleep on lid close")
-                        }
+                        PlasmaComponents3.ToolTip.visible: hovered
+                        PlasmaComponents3.ToolTip.text: checked
+                            ? i18n("Click to allow sleep on lid close")
+                            : i18n("Click to prevent sleep on lid close")
                     }
                 }
             }
@@ -244,13 +243,14 @@ PlasmoidItem {
                     font.bold: true
                     opacity: 0.85
                     font.pointSize: Kirigami.Theme.smallFont.pointSize
+                    Layout.leftMargin: Kirigami.Units.smallSpacing
                 }
 
                 QQC2.ButtonGroup {
                     id: screenActionGroup
                 }
 
-                // Option 1: Turn off screen (DPMS Off)
+                // Option 1: Turn off screen (DPMS Off) - Default
                 PlasmaComponents3.RadioButton {
                     Layout.fillWidth: true
                     QQC2.ButtonGroup.group: screenActionGroup
@@ -308,6 +308,8 @@ PlasmoidItem {
             // -----------------------------------------------------------------
             RowLayout {
                 Layout.fillWidth: true
+                Layout.leftMargin: Kirigami.Units.smallSpacing
+                Layout.rightMargin: Kirigami.Units.smallSpacing
                 spacing: Kirigami.Units.largeSpacing
 
                 ColumnLayout {
@@ -341,19 +343,48 @@ PlasmoidItem {
                 }
             }
 
-            // Informative status hint
-            PlasmaComponents3.Label {
+            // -----------------------------------------------------------------
+            // 4. Informative status banner
+            // -----------------------------------------------------------------
+            Rectangle {
                 Layout.fillWidth: true
-                wrapMode: Text.WordWrap
-                opacity: 0.75
-                font.pointSize: Kirigami.Theme.smallFont.pointSize
-                text: controller.isInhibited
-                    ? (controller.screenAction === LidController.TurnOffScreen
-                        ? i18n("💡 Laptop will stay awake with lid closed; display will turn off automatically.")
-                        : (controller.screenAction === LidController.DimBrightness
-                            ? i18n("💡 Laptop will stay awake with lid closed; display brightness will be dimmed.")
-                            : i18n("💡 Laptop will stay awake with lid closed; display will remain on.")))
-                    : i18n("💤 Normal sleep active: Laptop will sleep when lid is closed.")
+                radius: Kirigami.Units.smallSpacing
+                color: Qt.alpha(controller.isInhibited ? Kirigami.Theme.highlightColor : Kirigami.Theme.textColor, 0.08)
+                border.color: Qt.alpha(controller.isInhibited ? Kirigami.Theme.highlightColor : Kirigami.Theme.textColor, 0.15)
+                border.width: 1
+
+                implicitHeight: bannerRow.implicitHeight + (Kirigami.Units.mediumSpacing * 2)
+
+                RowLayout {
+                    id: bannerRow
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.leftMargin: Kirigami.Units.mediumSpacing
+                    anchors.rightMargin: Kirigami.Units.mediumSpacing
+                    spacing: Kirigami.Units.mediumSpacing
+
+                    Kirigami.Icon {
+                        source: controller.isInhibited ? "dialog-information" : "state-offline"
+                        Layout.preferredWidth: Kirigami.Units.iconSizes.small
+                        Layout.preferredHeight: Kirigami.Units.iconSizes.small
+                        opacity: 0.8
+                    }
+
+                    PlasmaComponents3.Label {
+                        Layout.fillWidth: true
+                        wrapMode: Text.WordWrap
+                        opacity: 0.85
+                        font.pointSize: Kirigami.Theme.smallFont.pointSize
+                        text: controller.isInhibited
+                            ? (controller.screenAction === LidController.TurnOffScreen
+                                ? i18n("💡 Laptop will stay awake with lid closed; display will turn off automatically.")
+                                : (controller.screenAction === LidController.DimBrightness
+                                    ? i18n("💡 Laptop will stay awake with lid closed; display brightness will be dimmed.")
+                                    : i18n("💡 Laptop will stay awake with lid closed; display will remain on.")))
+                            : i18n("💤 Normal sleep active: Laptop will sleep when lid is closed.")
+                    }
+                }
             }
         }
     }
