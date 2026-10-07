@@ -1,0 +1,24 @@
+# Build artifacts
+build/
+bin/
+
+# Package building
+*.pkg.tar.zst
+*.pkg.tar.xz
+/aur/pkg/
+/aur/src/
+
+# Editor and IDE files
+.vscode/
+.idea/
+*.swp
+*~
+*.kdev4
+*.user
+.directory
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile

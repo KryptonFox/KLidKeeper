@@ -1,0 +1,153 @@
+# Russian translation for KLidKeeper
+# Copyright (C) 2026 KLidKeeper authors
+# This file is distributed under the same license as the KLidKeeper package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: plasma_applet_org.kde.klid\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-07 10:45+0300\n"
+"PO-Revision-Date: 2026-10-07 10:45+0300\n"
+"Last-Translator: Krypton <krypton@example.com>\n"
+"Language-Team: Russian <kde-russian@lists.kde.ru>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: package/contents/ui/main.qml:22 package/contents/ui/main.qml:25
+#: package/contents/ui/main.qml:109
+msgid "KLidKeeper"
+msgstr "KLidKeeper"
+
+#: package/contents/ui/main.qml:27
+msgid ""
+"Stay Awake: ACTIVE\n"
+"• Laptop will NOT sleep on lid close\n"
+"• Middle-click: Deactivate\n"
+"• Left-click: Open settings"
+msgstr ""
+"Режим бодрствования: ВКЛЮЧЕН\n"
+"• Ноутбук НЕ уснет при закрытии крышки\n"
+"• Средний клик: Выключить\n"
+"• Левый клик: Настройки"
+
+#: package/contents/ui/main.qml:28
+msgid ""
+"Stay Awake: INACTIVE\n"
+"• Laptop will sleep on lid close\n"
+"• Middle-click: Activate\n"
+"• Left-click: Open settings"
+msgstr ""
+"Режим бодрствования: ВЫКЛЮЧЕН\n"
+"• Ноутбук уснет при закрытии крышки\n"
+"• Средний клик: Включить\n"
+"• Левый клик: Настройки"
+
+#: package/contents/ui/main.qml:44
+msgid "Allow sleep on lid close"
+msgstr "Разрешить сон при закрытии"
+
+#: package/contents/ui/main.qml:44 package/contents/ui/main.qml:197
+msgid "Prevent sleep on lid close"
+msgstr "Предотвращать сон при закрытии"
+
+#: package/contents/ui/main.qml:115
+msgid "Lid & Sleep Management"
+msgstr "Управление питанием и крышкой"
+
+#: package/contents/ui/main.qml:138
+msgid "ACTIVE"
+msgstr "АКТИВЕН"
+
+#: package/contents/ui/main.qml:138
+msgid "NORMAL"
+msgstr "ОБЫЧНЫЙ"
+
+#: package/contents/ui/main.qml:204
+msgid "Active: Laptop will not sleep when lid is closed"
+msgstr "Активно: ноутбук не уснет при закрытии крышки"
+
+#: package/contents/ui/main.qml:205
+msgid "Inactive: Standard sleep behavior on lid close"
+msgstr "Неактивно: стандартный переход в спящий режим"
+
+#: package/contents/ui/main.qml:224
+msgid "Click to allow sleep on lid close"
+msgstr "Нажмите, чтобы разрешить сон при закрытии"
+
+#: package/contents/ui/main.qml:225
+msgid "Click to prevent sleep on lid close"
+msgstr "Нажмите, чтобы предотвратить сон при закрытии"
+
+#: package/contents/ui/main.qml:243
+msgid "When laptop lid is closed:"
+msgstr "Экран при закрытии крышки:"
+
+#: package/contents/ui/main.qml:258
+msgid "Turn off screen (DPMS Off)"
+msgstr "Выключать экран (DPMS Off)"
+
+#: package/contents/ui/main.qml:266
+msgid ""
+"Turns off display backlight while the lid is closed. Wakes up immediately "
+"upon opening."
+msgstr ""
+"Гасит подсветку экрана пока крышка закрыта. При открытии экран сразу загорается."
+
+#: package/contents/ui/main.qml:274
+msgid "Dim display brightness to minimum"
+msgstr "Понижать яркость до минимума"
+
+#: package/contents/ui/main.qml:282
+msgid ""
+"Dims display brightness to 0% when closed and restores previous brightness "
+"upon opening."
+msgstr ""
+"Уменьшает яркость дисплея до 0% при закрытии и восстанавливает прежнюю яркость при открытии."
+
+#: package/contents/ui/main.qml:290
+msgid "Do nothing (keep screen on)"
+msgstr "Не изменять (оставить включенным)"
+
+#: package/contents/ui/main.qml:298
+msgid "Display remains powered on in its current state."
+msgstr "Экран останется включенным в текущем состоянии."
+
+#: package/contents/ui/main.qml:318
+msgid "Prevent screen lock"
+msgstr "Предотвращать блокировку экрана"
+
+#: package/contents/ui/main.qml:323
+msgid "Do not lock session on lid close or idle while awake"
+msgstr "Не блокировать сессию при закрытии крышки и простое"
+
+#: package/contents/ui/main.qml:339
+msgid "Screen lock is prevented while awake mode is active"
+msgstr "Блокировка экрана предотвращается во время бодрствования"
+
+#: package/contents/ui/main.qml:340
+msgid "Screen may be locked according to system power settings"
+msgstr "Экран может быть заблокирован согласно настройкам KDE"
+
+#: package/contents/ui/main.qml:352
+msgid ""
+"💡 Laptop will stay awake with lid closed; display will turn off "
+"automatically."
+msgstr ""
+"💡 Ноутбук не уснет при закрытии крышки, экран будет автоматически выключен."
+
+#: package/contents/ui/main.qml:354
+msgid ""
+"💡 Laptop will stay awake with lid closed; display brightness will be dimmed."
+msgstr ""
+"💡 Ноутбук не уснет при закрытии крышки, яркость экрана будет снижена."
+
+#: package/contents/ui/main.qml:355
+msgid "💡 Laptop will stay awake with lid closed; display will remain on."
+msgstr "💡 Ноутбук не уснет при закрытии крышки, экран останется включенным."
+
+#: package/contents/ui/main.qml:356
+msgid "💤 Normal sleep active: Laptop will sleep when lid is closed."
+msgstr "💤 Режим сна активен: при закрытии крышки ноутбук уйдет в сон."

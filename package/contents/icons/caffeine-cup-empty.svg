@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22" width="22" height="22">
+  <defs>
+    <style id="current-color-scheme" type="text/css">
+      .ColorScheme-Text { color: #232629; }
+    </style>
+  </defs>
+  <g fill="currentColor" class="ColorScheme-Text" opacity="0.65">
+    <!-- Cup Body Outline (Empty) -->
+    <path d="M2.5 8h12v5.5a3.5 3.5 0 0 1-3.5 3.5h-5A3.5 3.5 0 0 1 2.5 13.5V8zm1.2 1.2v4.3a2.3 2.3 0 0 0 2.3 2.3h5a2.3 2.3 0 0 0 2.3-2.3V9.2h-9.6z" style="fill: currentColor;"/>
+    <!-- Cup Handle -->
+    <path d="M14.5 9.5h1.2a2.3 2.3 0 0 1 2.3 2.3v.4a2.3 2.3 0 0 1-2.3 2.3h-1.2v-1.2h1.2a1.1 1.1 0 0 0 1.1-1.1v-.4a1.1 1.1 0 0 0-1.1-1.1h-1.2V9.5z" style="fill: currentColor;"/>
+    <!-- Saucer Plate -->
+    <path d="M1.5 18.5a.75.75 0 0 1 .75-.75h14a.75.75 0 0 1 0 1.5h-14a.75.75 0 0 1-.75-.75z" style="fill: currentColor;"/>
+  </g>
+</svg>
