@@ -2,7 +2,7 @@
 
 pkgname=plasma6-applets-klidkeeper-git
 _pkgname=KLidKeeper
-pkgver=1.0.0.r1.g9e25ff6
+pkgver=1.0.0.r2.g027c047
 pkgrel=1
 pkgdesc="KDE Plasma 6 plasmoid to prevent laptop sleep on lid close with screen power actions"
 arch=("x86_64" "aarch64")
