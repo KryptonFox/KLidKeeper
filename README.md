@@ -1,6 +1,6 @@
 # KLidKeeper (KDE Plasma 6)
 
-**KLidKeeper** (`org.kde.klid`) — нативный виджет и C++ плагин для панели задач и системного трея **KDE Plasma 6**, предотвращающий переход ноутбука в спящий режим при закрытии крышки.
+**KLidKeeper** (`com.github.kryptonfox.klidkeeper`) — нативный виджет и C++ плагин для панели задач и системного трея **KDE Plasma 6**, предотвращающий переход ноутбука в спящий режим при закрытии крышки.
 
 [English description below](#english)
 

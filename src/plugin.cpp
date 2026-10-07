@@ -11,7 +11,7 @@ class KLidPlugin : public QQmlExtensionPlugin
 public:
     void registerTypes(const char *uri) override
     {
-        Q_ASSERT(QLatin1String(uri) == QLatin1String("org.kde.klid"));
+        Q_ASSERT(QLatin1String(uri) == QLatin1String("com.github.kryptonfox.klidkeeper"));
         qmlRegisterType<LidController>(uri, 1, 0, "LidController");
     }
 };

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(org.kde.klid LANGUAGES CXX)
+project(com.github.kryptonfox.klidkeeper LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -35,24 +35,24 @@ target_link_libraries(klidplugin PRIVATE
     KF6::I18n
 )
 
-# Place built plugin into build/bin/org/kde/klid for local development and testing
+# Place built plugin into build/bin/com/github/kryptonfox/klidkeeper for local development and testing
 set_target_properties(klidplugin PROPERTIES
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/org/kde/klid"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/com/github/kryptonfox/klidkeeper"
 )
 
-# Generate qmldir inside build/bin/org/kde/klid for plasmoidviewer
+# Generate qmldir inside build/bin/com/github/kryptonfox/klidkeeper for plasmoidviewer
 file(GENERATE
-    OUTPUT "${CMAKE_BINARY_DIR}/bin/org/kde/klid/qmldir"
-    CONTENT "module org.kde.klid\nplugin klidplugin\nclassname KLidPlugin\n"
+    OUTPUT "${CMAKE_BINARY_DIR}/bin/com/github/kryptonfox/klidkeeper/qmldir"
+    CONTENT "module com.github.kryptonfox.klidkeeper\nplugin klidplugin\nclassname KLidPlugin\n"
 )
 
-# 1. Install QML C++ plugin and qmldir into ${KDE_INSTALL_QMLDIR}/org/kde/klid/
+# 1. Install QML C++ plugin and qmldir into ${KDE_INSTALL_QMLDIR}/com/github/kryptonfox/klidkeeper/
 install(TARGETS klidplugin
-    DESTINATION "${KDE_INSTALL_QMLDIR}/org/kde/klid"
+    DESTINATION "${KDE_INSTALL_QMLDIR}/com/github/kryptonfox/klidkeeper"
 )
 
-install(FILES "${CMAKE_BINARY_DIR}/bin/org/kde/klid/qmldir"
-    DESTINATION "${KDE_INSTALL_QMLDIR}/org/kde/klid"
+install(FILES "${CMAKE_BINARY_DIR}/bin/com/github/kryptonfox/klidkeeper/qmldir"
+    DESTINATION "${KDE_INSTALL_QMLDIR}/com/github/kryptonfox/klidkeeper"
 )
 
 # 2. Install icons to system hicolor theme for tray and panel support
@@ -68,8 +68,8 @@ install(FILES
     DESTINATION "${KDE_INSTALL_DATADIR}/icons/hicolor/scalable/apps"
 )
 
-# 3. Install the plasmoid package into ${KDE_INSTALL_DATADIR}/plasma/plasmoids/org.kde.klid
-plasma_install_package(package org.kde.klid)
+# 3. Install the plasmoid package into ${KDE_INSTALL_DATADIR}/plasma/plasmoids/com.github.kryptonfox.klidkeeper
+plasma_install_package(package com.github.kryptonfox.klidkeeper)
 
 # 4. Translations
 ki18n_install(po)

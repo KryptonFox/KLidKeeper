@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: plasma_applet_org.kde.klid\n"
+"Project-Id-Version: plasma_applet_com.github.kryptonfox.klidkeeper\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-07 10:45+0300\n"
 "PO-Revision-Date: 2026-10-07 10:45+0300\n"

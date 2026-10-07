@@ -11,7 +11,7 @@
         "Description": "Inhibit sleep and keep the laptop awake when closing the lid",
         "Description[ru]": "Предотвращение сна и отключения при закрытии крышки ноутбука",
         "Icon": "caffeine-cup-empty",
-        "Id": "org.kde.klid",
+        "Id": "com.github.kryptonfox.klidkeeper",
         "License": "GPL-2.0-or-later",
         "Name": "KLidKeeper",
         "Name[ru]": "KLidKeeper",

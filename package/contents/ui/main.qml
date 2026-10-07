@@ -6,7 +6,7 @@ import org.kde.plasma.components 3.0 as PlasmaComponents3
 import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.extras as PlasmaExtras
 import org.kde.plasma.plasmoid
-import org.kde.klid 1.0
+import com.github.kryptonfox.klidkeeper 1.0
 
 PlasmoidItem {
     id: root

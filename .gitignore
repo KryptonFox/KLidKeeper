@@ -7,6 +7,8 @@ bin/
 *.pkg.tar.xz
 /aur/pkg/
 /aur/src/
+/aur/local/pkg/
+/aur/local/src/
 
 # Editor and IDE files
 .vscode/
