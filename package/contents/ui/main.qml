@@ -13,7 +13,7 @@ PlasmoidItem {
 
     // Sizing for desktop / plasmoidviewer
     implicitWidth: Kirigami.Units.gridUnit * 22
-    implicitHeight: contentLayout ? contentLayout.implicitHeight + (Kirigami.Units.largeSpacing * 2) : Kirigami.Units.gridUnit * 15
+    implicitHeight: Kirigami.Units.gridUnit * 18
     width: implicitWidth
     height: implicitHeight
 
@@ -38,15 +38,6 @@ PlasmoidItem {
         acceptedButtons: Qt.MiddleButton
         onClicked: controller.toggle()
     }
-
-    // Contextual right-click menu in tray/panel
-    Plasmoid.contextualActions: [
-        PlasmaCore.Action {
-            text: controller.isInhibited ? i18n("Allow sleep on lid close") : i18n("Prevent sleep on lid close")
-            icon.name: controller.isInhibited ? "caffeine-cup-empty" : "caffeine-cup-full"
-            onTriggered: controller.toggle()
-        }
-    ]
 
     // =========================================================================
     // Compact Representation (Panel Icon / System Tray)
@@ -82,7 +73,6 @@ PlasmoidItem {
         Layout.minimumWidth: Kirigami.Units.gridUnit * 21
         Layout.preferredWidth: Kirigami.Units.gridUnit * 23
         Layout.maximumWidth: Kirigami.Units.gridUnit * 25
-        Layout.preferredHeight: contentLayout.implicitHeight
 
         contentItem: ColumnLayout {
             id: contentLayout
@@ -270,38 +260,34 @@ PlasmoidItem {
                 border.color: Qt.alpha(controller.isInhibited ? Kirigami.Theme.highlightColor : Kirigami.Theme.textColor, 0.14)
                 border.width: 1
 
-                implicitHeight: bannerRow.implicitHeight + (Kirigami.Units.smallSpacing * 2.2)
+                implicitHeight: bannerLabel.implicitHeight + (Kirigami.Units.mediumSpacing * 2)
 
-                RowLayout {
-                    id: bannerRow
+                PlasmaComponents3.Label {
+                    id: bannerLabel
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.leftMargin: Kirigami.Units.mediumSpacing
-                    anchors.rightMargin: Kirigami.Units.mediumSpacing
-                    spacing: Kirigami.Units.mediumSpacing
-
-                    Kirigami.Icon {
-                        source: controller.isInhibited ? "dialog-information" : "preferences-desktop-power"
-                        Layout.preferredWidth: Kirigami.Units.iconSizes.small
-                        Layout.preferredHeight: Kirigami.Units.iconSizes.small
-                        opacity: 0.8
-                    }
-
-                    PlasmaComponents3.Label {
-                        Layout.fillWidth: true
-                        wrapMode: Text.WordWrap
-                        opacity: 0.85
-                        font.pointSize: Kirigami.Theme.smallFont.pointSize
-                        text: controller.isInhibited
-                            ? (controller.screenAction === LidController.TurnOffScreen
-                                ? i18n("💡 Laptop will stay awake with lid closed; display will turn off automatically.")
-                                : (controller.screenAction === LidController.DimBrightness
-                                    ? i18n("💡 Laptop will stay awake with lid closed; display brightness will be dimmed.")
-                                    : i18n("💡 Laptop will stay awake with lid closed; display will remain on.")))
-                            : i18n("💤 Normal sleep active: Laptop will sleep when lid is closed.")
-                    }
+                    anchors.leftMargin: Kirigami.Units.largeSpacing
+                    anchors.rightMargin: Kirigami.Units.largeSpacing
+                    wrapMode: Text.WordWrap
+                    opacity: 0.85
+                    font.pointSize: Kirigami.Theme.smallFont.pointSize
+                    text: controller.isInhibited
+                        ? (controller.screenAction === LidController.TurnOffScreen
+                            ? i18n("💡 Laptop will stay awake with lid closed; display will turn off automatically.")
+                            : (controller.screenAction === LidController.DimBrightness
+                                ? i18n("💡 Laptop will stay awake with lid closed; display brightness will be dimmed.")
+                                : i18n("💡 Laptop will stay awake with lid closed; display will remain on.")))
+                        : i18n("💤 Normal sleep active: Laptop will sleep when lid is closed.")
                 }
+            }
+
+            // -----------------------------------------------------------------
+            // 4. Spacer: absorbs extra tray popup height, pins cards to the top
+            // -----------------------------------------------------------------
+            Item {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
             }
         }
     }
