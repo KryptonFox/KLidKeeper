@@ -1,0 +1,25 @@
+pkgbase = plasma6-applets-klidkeeper-git
+	pkgdesc = KDE Plasma 6 plasmoid to prevent laptop sleep on lid close with screen power actions
+	pkgver = 1.0.0.r0.gb068fc4
+	pkgrel = 1
+	url = https://github.com/KryptonFox/KLidKeeper
+	arch = x86_64
+	arch = aarch64
+	license = GPL-2.0-or-later
+	makedepends = git
+	makedepends = cmake
+	makedepends = extra-cmake-modules
+	makedepends = gettext
+	depends = libplasma
+	depends = ki18n
+	depends = qt6-base
+	depends = qt6-declarative
+	depends = systemd-libs
+	optdepends = kscreen-doctor: DPMS display power management on Wayland
+	optdepends = xorg-xset: DPMS display power management on X11
+	provides = plasma6-applets-klidkeeper
+	conflicts = plasma6-applets-klidkeeper
+	source = git+https://github.com/KryptonFox/KLidKeeper.git
+	sha256sums = SKIP
+
+pkgname = plasma6-applets-klidkeeper-git

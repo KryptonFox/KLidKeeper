@@ -1,0 +1,41 @@
+# Maintainer: KryptonFox <altkrypton@gmail.com>
+
+pkgname=plasma6-applets-klidkeeper
+_pkgname=KLidKeeper
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="KDE Plasma 6 plasmoid to prevent laptop sleep on lid close with screen power actions"
+arch=('x86_64' 'aarch64')
+url="https://github.com/KryptonFox/KLidKeeper"
+license=('GPL-2.0-or-later')
+depends=(
+    'libplasma'
+    'ki18n'
+    'qt6-base'
+    'qt6-declarative'
+    'systemd-libs'
+)
+makedepends=(
+    'cmake'
+    'extra-cmake-modules'
+    'gettext'
+)
+optdepends=(
+    'kscreen-doctor: DPMS display power management on Wayland'
+    'xorg-xset: DPMS display power management on X11'
+)
+source=("${url}/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('SKIP')
+
+build() {
+    cmake -B build -S "${_pkgname}-${pkgver}" \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+    cmake --build build
+}
+
+package() {
+    DESTDIR="$pkgdir" cmake --install build
+    install -Dm644 "${_pkgname}-${pkgver}/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
