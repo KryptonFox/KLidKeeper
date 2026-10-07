@@ -25,7 +25,7 @@ optdepends=(
     'xorg-xset: DPMS display power management on X11'
 )
 source=("${url}/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('SKIP')
+sha256sums=('143b580626a0fcdb05bed6b1e88dc673f95cf48f154343c0977406ee16c7730b')
 
 build() {
     cmake -B build -S "${_pkgname}-${pkgver}" \

@@ -17,6 +17,6 @@ pkgbase = plasma6-applets-klidkeeper
 	optdepends = kscreen-doctor: DPMS display power management on Wayland
 	optdepends = xorg-xset: DPMS display power management on X11
 	source = https://github.com/KryptonFox/KLidKeeper/archive/refs/tags/v1.0.0.tar.gz
-	sha256sums = SKIP
+	sha256sums = 143b580626a0fcdb05bed6b1e88dc673f95cf48f154343c0977406ee16c7730b
 
 pkgname = plasma6-applets-klidkeeper

@@ -5,6 +5,7 @@ bin/
 # Package building
 *.pkg.tar.zst
 *.pkg.tar.xz
+*.tar.gz
 /aur/pkg/
 /aur/src/
 /aur/local/pkg/
