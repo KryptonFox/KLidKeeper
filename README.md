@@ -1,119 +1,68 @@
-# KLidKeeper (KDE Plasma 6)
+# KLidKeeper
 
-**KLidKeeper** (`com.github.kryptonfox.klidkeeper`) — нативный виджет и C++ плагин для панели задач и системного трея **KDE Plasma 6**, предотвращающий переход ноутбука в спящий режим при закрытии крышки.
+A native KDE Plasma 6 widget and C++ plugin that inhibits system sleep when closing your laptop lid, with configurable screen power actions.
 
-[English description below](#english)
+## Features
 
----
+- **Prevent Sleep on Lid Close**: Takes a `systemd-logind` inhibit lock (`handle-lid-switch:sleep`) so background tasks, downloads, or media playback continue uninterrupted.
+- **Configurable Screen Actions**:
+  - **Turn off screen (DPMS Off)** *(Default)*: Turns off display backlight while the lid is closed (via `kscreen-doctor` on Wayland or `xset` on X11) to save power and prevent display heating against the keyboard. Restores immediately upon opening.
+  - **Dim display brightness**: Sets backlight brightness to minimum on lid close and restores previous level upon opening.
+  - **Do nothing**: Keeps display state unchanged.
+- **Inhibit Screen Lock**: Optionally prevents session lock while stay-awake mode is active (`org.freedesktop.ScreenSaver`).
+- **System Tray Integration**:
+  - **Middle-click** icon to quickly toggle stay-awake mode.
+  - **Left-click** icon to open settings popup.
+  - Dynamic coffee cup status icon matching system tray style.
+- **Localization**: Built-in English and Russian translations.
 
-## 🇷🇺 Русский
+## Requirements
 
-### Возможности и настройки
+- KDE Plasma 6 (`libplasma` >= 6.0)
+- KF6 (`ki18n`, `extra-cmake-modules`)
+- Qt 6 (`qt6-base`, `qt6-declarative`)
+- `systemd` (`systemd-logind`)
 
-1. **Предотвращать сон при закрытии крышки:**
-   - Блокирует переход в сон через D-Bus интерфейс `systemd-logind` (`handle-lid-switch:sleep`).
-   - Ноутбук продолжает работать при закрытой крышке (фоновые сборки, воспроизведение музыки, серверные задачи, скачивание файлов).
-2. **Действие с экраном при закрытии крышки:**
-   - 🖥️ **Выключать экран (DPMS Off)** — **опция по умолчанию**: при закрытии крышки подсветка матрицы выключается (через `kscreen-doctor` на Wayland или `xset` на X11), предотвращая нагрев матрицы о клавиатуру и экономя батарею. При открытии экран мгновенно зажигается.
-   - 🔅 **Понижать яркость дисплея до минимума:** снижает подсветку до 0% при закрытии и восстанавливает прежний уровень при открытии.
-   - 💡 **Не изменять:** экран остаётся включенным.
-3. **Предотвращать блокировку экрана:**
-   - Блокирует автоблокировку сессии через `org.freedesktop.ScreenSaver` во время активности режима бодрствования.
-4. **Удобное управление:**
-   - **Средний клик (колесико мыши)** по иконке в трее или на панели мгновенно включает/выключает режим без открытия всплывающего окна.
-   - **Левый клик:** открывает окно настроек.
-   - **Динамическая иконка:** наполненная чашка кофе при активном режиме, пустая — в обычном режиме сна.
-5. **Мультиязычность (i18n):**
-   - Автоматически использует системный язык пользователя (доступны русский и английский переводы через Gettext / KF6I18n).
+### Optional Dependencies
+- `kscreen-doctor`: For display power management on Wayland
+- `xorg-xset`: For display power management on X11
 
----
+## Installation
 
-### Установка из AUR (Arch Linux / CachyOS / Manjaro)
+### Arch Linux
 
-С помощью любого AUR-хелпера:
-
+Install via AUR helper (once available on AUR):
 ```bash
-# Версия из Git (всегда свежий код)
 paru -S plasma6-applets-klidkeeper-git
-# или
+# or
 yay -S plasma6-applets-klidkeeper-git
 ```
 
-Или вручную через `makepkg`:
+Or install directly with `makepkg`:
 ```bash
-git clone https://aur.archlinux.org/plasma6-applets-klidkeeper-git.git
-cd plasma6-applets-klidkeeper-git
+git clone https://github.com/KryptonFox/KLidKeeper.git
+cd KLidKeeper/aur/local
 makepkg -si
 ```
 
----
-
-### Локальная сборка и установка (в `~/.local` без root)
+### Building from Source
 
 ```bash
-# 1. Сборка
-cmake -B build -S . -DCMAKE_INSTALL_PREFIX=$HOME/.local
+cmake -B build -S . \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+
 cmake --build build
-
-# 2. Установка
-cmake --install build
-
-# 3. Обновление плазмоида в Plasma
-kpackagetool6 --type Plasma/Applet --upgrade package/ || kpackagetool6 --type Plasma/Applet --install package/
+sudo cmake --install build
 ```
 
-### Предпросмотр без перезапуска Plasma:
+To reload Plasma and make the applet available in your System Tray:
+
 ```bash
-# На русском
-LANGUAGE=ru plasmoidviewer -f planar -a package/
-
-# На английском
-LANGUAGE=en plasmoidviewer -f planar -a package/
+systemctl --user restart plasma-plasmashell.service
 ```
 
----
+## License
 
-### Инструкция для публикации в AUR
-
-Пакеты подготовлены в папке `aur/`:
-- `aur/PKGBUILD` и `aur/.SRCINFO` — для пакета `plasma6-applets-klidkeeper-git`
-- `aur/release/` — для релизного пакета `plasma6-applets-klidkeeper`
-
-**Шаги для залития в AUR:**
-1. Зарегистрируйтесь на [aur.archlinux.org](https://aur.archlinux.org) и добавьте свой SSH-ключ в настройках профиля.
-2. Склонируйте пустой репозиторий пакета с AUR:
-   ```bash
-   git clone ssh://aur@aur.archlinux.org/plasma6-applets-klidkeeper-git.git
-   cd plasma6-applets-klidkeeper-git
-   ```
-3. Скопируйте файлы сборки из этого репозитория:
-   ```bash
-   cp ~/Dev/cpp/KLidKeeper/aur/PKGBUILD .
-   cp ~/Dev/cpp/KLidKeeper/aur/.SRCINFO .
-   ```
-4. Зафиксируйте и отправьте изменения:
-   ```bash
-   git add PKGBUILD .SRCINFO
-   git commit -m "Initial commit for plasma6-applets-klidkeeper-git"
-   git push origin master
-   ```
-
----
-
-<a name="english"></a>
-## 🇬🇧 English
-
-Native KDE Plasma 6 widget and C++ extension plugin designed to keep your laptop awake when the lid is closed.
-
-### Features
-- **Prevent sleep on lid close:** Calls `systemd-logind` Inhibit lock (`handle-lid-switch:sleep`).
-- **Screen action on lid close:**
-  - 🖥️ **Turn off screen (DPMS Off)** *(Default)*: Powers off screen backlight while lid is closed, turns back on immediately when opened.
-  - 🔅 **Dim display brightness:** Reduces brightness to minimum on lid close, restores upon opening.
-  - 💡 **Do nothing:** Keeps display on.
-- **Prevent screen lock:** Inhibits session locker via `org.freedesktop.ScreenSaver`.
-- **Tray & Panel integration:** Middle-click toggles mode instantly; dynamic coffee cup icon.
-- **Full i18n support:** System locale detection with built-in English and Russian translations.
-
-### License
 GPL-2.0-or-later

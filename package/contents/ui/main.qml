@@ -39,9 +39,7 @@ PlasmoidItem {
         onClicked: controller.toggle()
     }
 
-    // =========================================================================
-    // Compact Representation (Panel Icon / System Tray)
-    // =========================================================================
+    // Compact representation (panel / tray)
     compactRepresentation: MouseArea {
         id: compactArea
         hoverEnabled: true
@@ -64,9 +62,7 @@ PlasmoidItem {
         }
     }
 
-    // =========================================================================
-    // Full Representation (Popup Settings Menu)
-    // =========================================================================
+    // Full representation (popup menu)
     fullRepresentation: PlasmaExtras.Representation {
         id: fullArea
 
@@ -78,9 +74,7 @@ PlasmoidItem {
             id: contentLayout
             spacing: Kirigami.Units.mediumSpacing
 
-            // -----------------------------------------------------------------
-            // 1. Hero Toggle Card: Prevent sleep on lid close
-            // -----------------------------------------------------------------
+            // Stay awake toggle card
             Rectangle {
                 Layout.fillWidth: true
                 radius: Kirigami.Units.smallSpacing * 1.5
@@ -158,9 +152,7 @@ PlasmoidItem {
                 }
             }
 
-            // -----------------------------------------------------------------
-            // 2. Settings Group Card (Display behavior & Screen lock)
-            // -----------------------------------------------------------------
+            // Display and lock settings card
             Rectangle {
                 Layout.fillWidth: true
                 radius: Kirigami.Units.smallSpacing * 1.5
@@ -179,7 +171,7 @@ PlasmoidItem {
                     anchors.rightMargin: Kirigami.Units.largeSpacing
                     spacing: Kirigami.Units.mediumSpacing
 
-                    // Row A: Screen Action with ComboBox
+                    // Screen action selection
                     RowLayout {
                         Layout.fillWidth: true
                         spacing: Kirigami.Units.mediumSpacing
@@ -211,7 +203,7 @@ PlasmoidItem {
                         opacity: 0.5
                     }
 
-                    // Row B: Prevent Screen Lock with Switch
+                    // Prevent screen lock toggle
                     RowLayout {
                         Layout.fillWidth: true
                         spacing: Kirigami.Units.mediumSpacing
@@ -250,9 +242,7 @@ PlasmoidItem {
                 }
             }
 
-            // -----------------------------------------------------------------
-            // 3. Informative Status Banner
-            // -----------------------------------------------------------------
+            // Status message
             Rectangle {
                 Layout.fillWidth: true
                 radius: Kirigami.Units.smallSpacing * 1.5
@@ -282,9 +272,7 @@ PlasmoidItem {
                 }
             }
 
-            // -----------------------------------------------------------------
-            // 4. Spacer: absorbs extra tray popup height, pins cards to the top
-            // -----------------------------------------------------------------
+            // Expand spacer to absorb excess popup height
             Item {
                 Layout.fillWidth: true
                 Layout.fillHeight: true

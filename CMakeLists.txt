@@ -35,18 +35,18 @@ target_link_libraries(klidplugin PRIVATE
     KF6::I18n
 )
 
-# Place built plugin into build/bin/com/github/kryptonfox/klidkeeper for local development and testing
+# Plugin output directory for development
 set_target_properties(klidplugin PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/com/github/kryptonfox/klidkeeper"
 )
 
-# Generate qmldir inside build/bin/com/github/kryptonfox/klidkeeper for plasmoidviewer
+# QML module definition
 file(GENERATE
     OUTPUT "${CMAKE_BINARY_DIR}/bin/com/github/kryptonfox/klidkeeper/qmldir"
     CONTENT "module com.github.kryptonfox.klidkeeper\nplugin klidplugin\nclassname KLidPlugin\n"
 )
 
-# 1. Install QML C++ plugin and qmldir into ${KDE_INSTALL_QMLDIR}/com/github/kryptonfox/klidkeeper/
+# Install QML plugin
 install(TARGETS klidplugin
     DESTINATION "${KDE_INSTALL_QMLDIR}/com/github/kryptonfox/klidkeeper"
 )
@@ -55,7 +55,7 @@ install(FILES "${CMAKE_BINARY_DIR}/bin/com/github/kryptonfox/klidkeeper/qmldir"
     DESTINATION "${KDE_INSTALL_QMLDIR}/com/github/kryptonfox/klidkeeper"
 )
 
-# 2. Install icons to system hicolor theme for tray and panel support
+# Install icons
 install(FILES
     package/contents/icons/caffeine-cup-full.svg
     package/contents/icons/caffeine-cup-empty.svg
@@ -68,8 +68,8 @@ install(FILES
     DESTINATION "${KDE_INSTALL_DATADIR}/icons/hicolor/scalable/apps"
 )
 
-# 3. Install the plasmoid package into ${KDE_INSTALL_DATADIR}/plasma/plasmoids/com.github.kryptonfox.klidkeeper
+# Install plasmoid package
 plasma_install_package(package com.github.kryptonfox.klidkeeper)
 
-# 4. Translations
+# Translations
 ki18n_install(po)

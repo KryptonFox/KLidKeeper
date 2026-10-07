@@ -41,7 +41,7 @@ LidController::LidController(QObject *parent)
         m_screenAction = TurnOffScreen;
     }
 
-    // 1. Listen for logind service lifetime events
+    // Monitor logind service lifetime
     QDBusConnection::systemBus().connect(
         QStringLiteral("org.freedesktop.DBus"),
         QStringLiteral("/org/freedesktop/DBus"),
@@ -51,7 +51,7 @@ LidController::LidController(QObject *parent)
         SLOT(onNameOwnerChanged(QString,QString,QString))
     );
 
-    // 2. Listen for Solid PowerManagement lid state signal
+    // Monitor Solid lid state signal
     QDBusConnection::sessionBus().connect(
         s_solidService,
         s_solidPath,
@@ -61,7 +61,7 @@ LidController::LidController(QObject *parent)
         SLOT(onLidClosedChanged(bool))
     );
 
-    // 3. Listen for logind LidClosed property changes
+    // Monitor logind LidClosed property changes
     QDBusConnection::systemBus().connect(
         s_logindService,
         s_logindPath,
@@ -158,7 +158,7 @@ void LidController::enableInhibit()
     );
 
     msg << QStringLiteral("handle-lid-switch:sleep")
-        << QStringLiteral("KLid Plasmoid")
+        << QStringLiteral("KLidKeeper")
         << QStringLiteral("User requested stay awake on lid close")
         << QStringLiteral("block");
 
